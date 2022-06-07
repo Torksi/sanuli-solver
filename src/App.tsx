@@ -12,7 +12,9 @@ function App() {
   if (words.length === 0) {
     fetch("/kotus-sanalista_v1.txt")
       .then((res) => res.text())
-      .then((data) => setWords(data.toLowerCase().split("\r\n")));
+      .then((data) =>
+        setWords(data.toLowerCase().replace("\r", "").split("\n"))
+      );
   } else {
     console.log("words", words);
   }
