@@ -1,19 +1,20 @@
-import axios from "axios";
 import React, { useState } from "react";
 import "./App.scss";
 
 function App() {
   const [lengthStr, setLengthStr] = useState("5");
-  const [words, setWords] = useState([]);
+  const [words, setWords] = useState<string[]>([]);
   const [results, setResults] = useState<string[]>([]);
   const [invalid, setInvalid] = useState("");
   const [wrongPlace, setWrongPlace] = useState("");
   const [knownPlaces, setKnownPlaces] = useState<any>({});
 
   if (words.length === 0) {
-    axios.get("/kotus-sanalista_v1.txt").then((res) => {
-      setWords(res.data.toLowerCase().split("\r\n"));
-    });
+    fetch("/kotus-sanalista_v1.txt")
+      .then((res) => res.text())
+      .then((data) =>
+        setWords(data.toLowerCase().replace("\r", "").split("\n"))
+      );
   }
 
   const updateResults = async (
