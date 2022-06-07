@@ -15,8 +15,6 @@ function App() {
       .then((data) =>
         setWords(data.toLowerCase().replace("\r", "").split("\n"))
       );
-  } else {
-    console.log("words", words);
   }
 
   const updateResults = async (
